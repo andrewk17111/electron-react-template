@@ -1,11 +1,18 @@
 import React from "react";
-import TitleBar from "@/components/TitleBar";
+import SideBar from "@/components/menus/SideBar";
+import TitleBar from "@/components/menus/TitleBar";
+import { Outlet } from "react-router-dom";
 
-export default function BaseLayout({ children }: { children: React.ReactNode }) {
+export default function WindowLayout() {
   return (
     <>
       <TitleBar title="Electron + React + Vite + TypeScript" />
-      <main>{children}</main>
+      <div className="flex min-h-screen w-full flex-col bg-muted/40">
+        <SideBar />
+        <main className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
+          <Outlet />
+        </main>
+      </div>
     </>
   );
 }

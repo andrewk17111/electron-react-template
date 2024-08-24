@@ -1,9 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
-import { HomeIcon } from "lucide-react";
+import {
+  Link,
+  useLocation,
+} from "react-router-dom";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../ui/tooltip";
+import { PageDefinition } from "@/App";
 
 interface SideBarProps {
+  pages: { [key: string]: PageDefinition };
 }
 
 interface MenuIconProps {
@@ -13,12 +17,20 @@ interface MenuIconProps {
   selected: boolean;
 }
 
-export default function SideBar({ }: SideBarProps) {
+export default function SideBar({ pages }: SideBarProps) {
+  const pageName = useLocation().pathname.substring(1);
+  console.log(`pageName: '${pageName}'`);
+
   return (
     <aside className="fixed top-8 bottom-0 left-0 z-10 hidden w-14 flex-col border-r bg-menu sm:flex">
       <nav className="flex flex-col items-center gap-4 p-0">
         <TooltipProvider>
-          <MenuIcon icon={({ className }) => <HomeIcon className={className} />} text="Home" path="" selected />
+          {Object.keys(pages).map((key) => {
+            const page = pages[key];
+            const selected = pageName === key || (!Object.keys(pages).includes(pageName) && key === "index");
+
+            return <MenuIcon key={key} icon={page.icon} text={page.title} path={key} selected={selected} />;
+          })}
         </TooltipProvider>
       </nav>
     </aside>

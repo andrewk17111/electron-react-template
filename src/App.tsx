@@ -7,6 +7,13 @@ import { syncThemeWithLocal } from "./helpers/theme_helpers";
 import WindowLayout from "./layouts/WindowLayout";
 import "./localization/i18n";
 import HomePage from "./pages/HomePage";
+import { HomeIcon } from "lucide-react";
+
+export interface PageDefinition {
+  element: JSX.Element;
+  icon: ({ className }: { className: string }) => JSX.Element;
+  title: string;
+}
 
 export default function App() {
   const { i18n } = useTranslation();
@@ -16,12 +23,28 @@ export default function App() {
     updateAppLanguage(i18n);
   }, []);
 
+  const pages: { [key: string]: PageDefinition } = {
+    index: {
+      element: <HomePage />,
+      icon: ({ className }) => <HomeIcon className={className} />,
+      title: "Home",
+    }
+  };
+
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<WindowLayout />}>
-          <Route index element={<HomePage />} />
-          <Route path="*" element={<HomePage />} />
+        <Route path="/" element={<WindowLayout pages={pages} />}>
+          {Object.keys(pages).map((key) => {
+            if (key === "index") {
+              return [
+                <Route key={key} index element={pages[key].element} />,
+                <Route key="*" path="*" element={pages[key].element} />
+              ];
+            }
+
+            return <Route key={key} path={key} element={pages[key].element} />;
+          })}
         </Route>
       </Routes>
     </BrowserRouter>

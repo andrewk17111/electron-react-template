@@ -1,14 +1,13 @@
-import { Language } from "./language";
+export interface Language {
+    key: string;
+    nativeName: string;
+    prefix: string;
+}
 
 export default [
     {
         key: "en",
         nativeName: "English",
         prefix: "🇺🇸",
-    },
-    {
-        key: "pt-BR",
-        nativeName: "Português (Brasil)",
-        prefix: "🇧🇷",
     },
 ] satisfies Language[];

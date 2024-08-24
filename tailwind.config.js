@@ -21,8 +21,12 @@ module.exports = {
                 border: "hsl(var(--border))",
                 input: "hsl(var(--input))",
                 ring: "hsl(var(--ring))",
-                background: "hsl(var(--background))",
-                foreground: "hsl(var(--foreground))",
+                background: "var(--background)",
+                foreground: "var(--foreground)",
+                titleBar: {
+                    DEFAULT: "var(--title-bar)",
+                    foreground: "var(--title-bar-foreground)",
+                },
                 primary: {
                     DEFAULT: "hsl(var(--primary))",
                     foreground: "hsl(var(--primary-foreground))",
@@ -53,7 +57,7 @@ module.exports = {
                 },
             },
             fontFamily: {
-                sans: ["Geist", "sans-serif"],
+                sans: ["sans-serif"],
             },
             borderRadius: {
                 lg: "var(--radius)",

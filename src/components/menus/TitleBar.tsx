@@ -7,8 +7,8 @@ interface TitleBarProps {
 
 interface WindowButtonProps {
   text: string;
+  className: string;
   onClick: () => Promise<void>;
-  close?: boolean;
   children: JSX.Element | JSX.Element[];
 }
 
@@ -30,27 +30,25 @@ export default function TitleBar({ title }: TitleBarProps) {
 function WindowButtons() {
   return (
     <div className="flex bg-menu">
-      <WindowButton text="Minimize" onClick={minimizeWindow}>
+      <WindowButton text="Minimize" className="hover:bg-muted" onClick={minimizeWindow}>
         <MinimizeIcon />
       </WindowButton>
-      <WindowButton text="Maximize" onClick={maximizeWindow}>
+      <WindowButton text="Maximize" className="hover:bg-muted" onClick={maximizeWindow}>
         <MaximizeIcon />
       </WindowButton>
-      <WindowButton text="Close" close onClick={closeWindow} >
+      <WindowButton text="Close" className="hover:bg-red-500" onClick={closeWindow} >
         <CloseIcon />
       </WindowButton>
     </div>
   );
 }
 
-function WindowButton({ text, onClick, close = false, children }: WindowButtonProps) {
-  const hoverColor = close ? "bg-red-500" : "bg-muted"
-
+function WindowButton({ text, className, onClick, children }: WindowButtonProps) {
   return (
     <button
       title={text}
       type="button"
-      className={`p-2 hover:${hoverColor}`}
+      className={`p-2 ${className}`}
       onClick={onClick}
     >
       {children}

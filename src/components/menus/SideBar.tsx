@@ -19,7 +19,6 @@ interface MenuIconProps {
 
 export default function SideBar({ pages }: SideBarProps) {
   const pageName = useLocation().pathname.substring(1);
-  console.log(`pageName: '${pageName}'`);
 
   return (
     <aside className="fixed top-8 bottom-0 left-0 z-10 hidden w-14 flex-col border-r bg-menu sm:flex">
